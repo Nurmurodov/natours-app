@@ -10,9 +10,15 @@ router
   .post(
     authController.protect,
     authController.restrictTo('user'),
+    reviewController.setTourUserIds,
+    reviewController.setCreateBody,
     reviewController.createReview
   );
 
-router.route('/:id').delete(reviewController.deleteReviews);
+router
+  .route('/:id')
+  .get(reviewController.getReview)
+  .patch(reviewController.updateReviews)
+  .delete(reviewController.deleteReviews);
 
 module.exports = router;
