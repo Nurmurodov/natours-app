@@ -33,7 +33,7 @@ exports.updateOne = Model => catchAsync(async (req, res, next) => {
   });
 });
 
-exports.createOne = Model => catchAsync(async (req, res, next) => {
+exports.createOne = Model => catchAsync(async (req, res) => {
   const document = await Model.create(req.body);
 
   res.status(201).json({
@@ -62,7 +62,7 @@ exports.getOne = (Model, popOptions) => catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getAll = Model => catchAsync(async (req, res, next) => {
+exports.getAll = Model => catchAsync(async (req, res) => {
   let filter = {};
   if (req.params.tourId) filter = { tour: req.params.tourId };
 

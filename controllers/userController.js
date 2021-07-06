@@ -58,6 +58,11 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
   });
 });
 
+
+exports.getMe = (req,res,next) => {
+  req.params.id = req.user.id
+  next()
+}
 exports.getUser = factory.getOne(User);
 exports.updateUser = factory.updateOne(User);
 exports.deleteUser = factory.deleteOne(User);
