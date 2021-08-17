@@ -1,4 +1,4 @@
-class ApiFeature {
+class APIFeatures {
   constructor(query, queryString) {
     this.query = query;
     this.queryString = queryString;
@@ -6,14 +6,16 @@ class ApiFeature {
 
   filter() {
     const queryObj = { ...this.queryString };
-    const excludedFields = ['page', 'limit', 'sort', 'fields'];
-
+    const excludedFields = ['page', 'sort', 'limit', 'fields'];
     excludedFields.forEach(el => delete queryObj[el]);
 
+    // 1B) Advanced filtering
     let queryStr = JSON.stringify(queryObj);
     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
+
     this.query = this.query.find(JSON.parse(queryStr));
-    return this
+
+    return this;
   }
 
   sort() {
@@ -23,7 +25,8 @@ class ApiFeature {
     } else {
       this.query = this.query.sort('-createdAt');
     }
-    return this
+
+    return this;
   }
 
   limitFields() {
@@ -33,7 +36,8 @@ class ApiFeature {
     } else {
       this.query = this.query.select('-__v');
     }
-    return this
+
+    return this;
   }
 
   paginate() {
@@ -43,8 +47,7 @@ class ApiFeature {
 
     this.query = this.query.skip(skip).limit(limit);
 
-    return this
+    return this;
   }
 }
-
-module.exports = ApiFeature
+module.exports = APIFeatures;
